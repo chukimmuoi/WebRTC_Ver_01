@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import org.webrtc.*
 
+//@see: https://amryousef.me/android-webrtc
 class RTCClient(context: Application, observer: PeerConnection.Observer) {
 
     val TAG = RTCClient::class.java.simpleName
@@ -21,6 +22,7 @@ class RTCClient(context: Application, observer: PeerConnection.Observer) {
         buildPeerConnectionFactory()
     }
 
+    // Number 06-1
     private val iceServer = listOf(
         PeerConnection
             .IceServer
@@ -44,6 +46,7 @@ class RTCClient(context: Application, observer: PeerConnection.Observer) {
         initPeerConnectionFactory(context)
     }
 
+    // Number 01
     private fun initPeerConnectionFactory(context: Application) {
         val options = PeerConnectionFactory
             .InitializationOptions
@@ -54,6 +57,7 @@ class RTCClient(context: Application, observer: PeerConnection.Observer) {
         PeerConnectionFactory.initialize(options)
     }
 
+    // Number 02
     private fun buildPeerConnectionFactory(): PeerConnectionFactory {
         val output = PeerConnectionFactory
             .builder()
@@ -82,6 +86,7 @@ class RTCClient(context: Application, observer: PeerConnection.Observer) {
         return output
     }
 
+    // Number 06-3
     private fun buildPeerConnection(observer: PeerConnection.Observer): PeerConnection? {
         val output = peerConnectionFactory.createPeerConnection(
             iceServer,
@@ -91,7 +96,7 @@ class RTCClient(context: Application, observer: PeerConnection.Observer) {
         return output
     }
 
-    // Get camera trước.
+    // Number 04 Get camera trước.
     private fun getVideoCapture(context: Context): CameraVideoCapturer {
         val output = Camera2Enumerator(context)
             .run {
@@ -105,6 +110,7 @@ class RTCClient(context: Application, observer: PeerConnection.Observer) {
         return output
     }
 
+    // Number 03
     fun initSurfaceView(view: SurfaceViewRenderer) {
         view.run {
             setMirror(true)               // Phản chiếu.
@@ -113,6 +119,7 @@ class RTCClient(context: Application, observer: PeerConnection.Observer) {
         }
     }
 
+    // Number 05
     fun startLocalVideoCapture(localVideoOutput: SurfaceViewRenderer) {
         val surfaceTextureHelper = SurfaceTextureHelper
             .create(
@@ -143,6 +150,7 @@ class RTCClient(context: Application, observer: PeerConnection.Observer) {
         peerConnection?.addStream(localStream)
     }
 
+    // Number 07-1
     private fun PeerConnection.call(sdpObserver: SdpObserver) {
         val constraints = MediaConstraints().apply {
             mandatory.add(
@@ -176,6 +184,7 @@ class RTCClient(context: Application, observer: PeerConnection.Observer) {
         }, constraints)
     }
 
+    // Number 08-1
     private fun PeerConnection.answer(sdpObserver: SdpObserver) {
         val constraints = MediaConstraints().apply {
             mandatory.add(
@@ -218,6 +227,7 @@ class RTCClient(context: Application, observer: PeerConnection.Observer) {
         peerConnection?.answer(sdpObserver)
     }
 
+    // Number 07:08-2
     fun onRemoteSessionReceived(sessionDescription: SessionDescription) {
         peerConnection?.setRemoteDescription(object : SdpObserver {
             override fun onSetFailure(s: String) {

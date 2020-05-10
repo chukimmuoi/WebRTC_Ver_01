@@ -1,10 +1,10 @@
 package com.chukimmuoi.webrtc
 
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
@@ -91,6 +91,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Number 06-2
     private fun onCameraPermissionGranted() {
         rtcClient = RTCClient(
             application,
